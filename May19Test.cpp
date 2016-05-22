@@ -7,7 +7,10 @@ class Person
 	const char *m_name;
 	int m_age;
 public:
-	Person(const Person &p) : m_name(p.m_name), m_age(p.m_age) { cout << "Copy CTOR" << endl; }
+	Person(const Person &p) : m_name(p.m_name), m_age(p.m_age) //exactly compile create shallow copy
+	{ //when pass by value copy ctor is called
+		cout << "Copy CTOR" << endl; 
+	} //DTOR is called object is detroyed
 	Person() : m_name(0), m_age(0){ cout << "Empty Person CTOR" << endl; } 
 	Person(const char *name, int age) : m_name(name), m_age(age){ cout << "PERSON CTOR" << endl;}
 	~Person(){ cout << "Person DTOR" << endl; }
@@ -36,15 +39,21 @@ public:
 
 	//overload overide
 	/*T&*/       /*&*/
-	void display(T m_obj)  { cout <<"display obj: " << m_obj.m_name << " " << m_obj.m_age << endl; }  
-	void display(SP<T> &pData) { cout << "display pointer: "<< pData->m_name << " "<< pData->m_age << endl;}
+	void display(T m_obj)  { cout << "SP display obj: " << m_obj.m_name << " " << m_obj.m_age << endl; }  
+	void display(SP<T> &pData) { cout << "SP display pointer: "<< pData->m_name << " "<< pData->m_age << endl;}
+	T* get() const { return pData;}
 	// void display() { cout << "SP pointer: "<< pData->m_name << " "<< pData->m_age << endl;}
 };
 
 int main()
 {
-	SP<Person> p = SP<Person>(new Person("Scott", 25));  //pointer
-	SP<Person> p1(new Person("Thomas", 35));			 // pointer
+	SP<Person> *sp = new SP<Person>(new Person("tom", 12));  //sp pointer of SP<Person> 
+	sp->displaySPP();
+	sp->display(*sp);
+	sp->get()->display();
+
+	SP<Person> p = SP<Person>(new Person("Scott", 25));      //p pointer
+	SP<Person> p1(new Person("Thomas", 35));			     // pointer
 	p->display();
 	p1->display();     //Base
 	// p1.displaySPP();	   //override 
