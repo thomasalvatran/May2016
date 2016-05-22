@@ -6886,9 +6886,7 @@ int main()
 	sp->displaySPP();
 	sp->display(*sp);
 	sp->get()->display();
-	SP<Person> *sp = new SP<Person>(new Person("tom", 12));  //sp pointer of SP<Person> 
-	sp->displaySPP();
-	sp->display(*sp);
+
 	SP<Person> p = SP<Person>(new Person("Scott", 25));      //p pointer
 	SP<Person> p1(new Person("Thomas", 35));			     // pointer
 	p->display();
